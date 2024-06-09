@@ -1,14 +1,26 @@
 <launch>
   <arg name="launch_driver" default="true"/>
-  <arg name="gnss_receiver" default="ublox" description="ublox(default) or septentrio"/>
+  <arg name="gnss_receiver" default="smrc" description="smrc(default) or septentrio or ublox"/>
 
   <group>
     <push-ros-namespace namespace="gnss"/>
 
     <!-- Switch topic name -->
+    <let name="navsatfix_topic_name" value="smrc/fix" if="$(eval &quot;'$(var gnss_receiver)'=='smrc'&quot;)"/>
     <let name="navsatfix_topic_name" value="ublox/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)"/>
     <let name="navsatfix_topic_name" value="septentrio/nav_sat_fix" if="$(eval &quot;'$(var gnss_receiver)'=='septentrio'&quot;)"/>
     <let name="orientation_topic_name" value="/autoware_orientation"/>
+
+     <!-- SMRC GNSS Driver-->
+    <group if="$(eval &quot;'$(var gnss_receiver)'=='smrc'&quot;)">
+      <push-ros-namespace namespace="smrc"/>
+        <node pkg="smrc_imu_driver" name="smrc_imu_node" exec="gnss_sample" if="$(var launch_driver)">
+        <remap from="smrc/fix" to="smrc/nav_sat_fix" />
+        <param name="imu_driver_gps_topic_name" value="fix" />
+        <param name="imu_driver_gps_msg_frequency" value="5.0" />
+        <param name="imu_driver_gps_udp_port" value="5033" />
+        <param name="imu_driver_gps_frame_id" value="smrc/gnss_link" />
+      </node>
 
     <!-- Ublox Driver -->
     <group if="$(eval &quot;'$(var gnss_receiver)'=='ublox'&quot;)">
