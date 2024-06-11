@@ -43,6 +43,7 @@ def launch_setup(context, *args, **kwargs):
                 "input_topics": input_topics,
                 "output_frame": LaunchConfiguration("base_frame"),
                 "input_twist_topic_type": "twist",
+                "approximate_sync": LaunchConfiguration("approximate_sync"),
             }
         ],
     )
@@ -56,6 +57,7 @@ def launch_setup(context, *args, **kwargs):
             {
                 "input_topics": input_topics,
                 "output_frame": LaunchConfiguration("base_frame"),
+                "approximate_sync": LaunchConfiguration("approximate_sync"),
             }
         ],
     )
