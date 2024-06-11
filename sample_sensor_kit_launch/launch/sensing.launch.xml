@@ -1,6 +1,6 @@
 <launch>
   <arg name="launch_driver" default="true" description="do launch driver"/>
-  <arg name="vehicle_mirror_param_file" description="path to the file of vehicle mirror position yaml"/>
+  <arg name="vehicle_mirror_param_file" default="$(find-pkg-share sample_vehicle_description)/config/mirror.param.yaml" description="path to the file of vehicle mirror position yaml"/>
   <arg name="pointcloud_container_name" default="pointcloud_container"/>
   <arg name="vehicle_id" default="$(env VEHICLE_ID default)"/>
 
@@ -18,23 +18,23 @@
     </include> -->
 
     <!-- IMU Driver -->
-    <group>
+    <!-- <group>
       <push-ros-namespace namespace="smrc"/>
         <node pkg="smrc_imu_driver" name="smrc_imu_node" exec="server" if="$(var launch_driver)">
         <param name="imu_driver_com_port" value="/dev/ttyACM0" />
         <param name="imu_server_port" value="5032" />
         <param name="gps_server_port" value="5033" />
       </node>
-    </group>
+    </group> -->
     
-    <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/imu.launch.xml">
+    <!-- <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/imu.launch.xml">
       <arg name="launch_driver" value="$(var launch_driver)"/>
-    </include>
+    </include> -->
 
     <!-- GNSS Driver -->
-    <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/gnss.launch.xml">
+    <!-- <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/gnss.launch.xml">
       <arg name="launch_driver" value="$(var launch_driver)"/>
-    </include>
+    </include> -->
 
     <!-- Vehicle Velocity Converter  -->
     <include file="$(find-pkg-share vehicle_velocity_converter)/launch/vehicle_velocity_converter.launch.xml">
