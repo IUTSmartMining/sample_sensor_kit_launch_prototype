@@ -13,9 +13,11 @@
     </include>
 
     <!-- Camera Driver -->
-    <!-- <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/camera.launch.xml">
+    <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/camera.launch.xml">
       <arg name="launch_driver" value="$(var launch_driver)" />
-    </include> -->
+      <arg name="camera_type" value="front"/>
+      <arg name="rtsp_url" value="rtsp://admin:Madan1401@192.168.100.62:554/streaming/channels/101"/>
+    </include>
 
     <!-- IMU Driver -->
     <!-- <group>
