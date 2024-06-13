@@ -19,6 +19,11 @@
       <arg name="rtsp_url" value="rtsp://admin:Madan1401@192.168.100.62:554/streaming/channels/101"/>
     </include>
 
+    <!-- Radar Driver -->
+    <include file="$(find-pkg-share sample_sensor_kit_launch)/launch/radar.launch.xml">
+      <arg name="launch_driver" value="$(var launch_driver)"/>
+    </include>
+
     <!-- IMU Driver -->
     <!-- <group>
       <push-ros-namespace namespace="smrc"/>
