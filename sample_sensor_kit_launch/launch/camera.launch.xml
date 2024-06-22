@@ -9,6 +9,7 @@
       <push-ros-namespace namespace="camera0"/>
       <include file="$(find-pkg-share image_publisher)/launch/image_publisher_file.launch.py">
         <arg name="rtsp_url" value="$(var rtsp_url)"/>
+        <arg name="frame_id" value="camera0/camera_link"/>
       </include>
  
       <include file="$(find-pkg-share image_proc)/launch/image_proc.launch.py"/>
