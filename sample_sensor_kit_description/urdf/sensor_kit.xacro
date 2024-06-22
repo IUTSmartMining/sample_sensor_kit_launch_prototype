@@ -6,6 +6,8 @@
     <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
     <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
     <xacro:include filename="$(find radar_description)/urdf/radar.xacro"/>
+    <xacro:include filename="$(find gnss_description)/urdf/gnss.xacro"/>
+
 
     <xacro:arg name="gpu" default="false"/>
     <xacro:arg name="config_dir" default="$(find sample_sensor_kit_description)/config"/>
@@ -52,6 +54,23 @@
       height="720"
       fov="1.83"
     />
+
+    <!-- camera -->
+    <!-- <xacro:monocular_camera_macro
+      name="camera1/camera"
+      parent="sensor_kit_base_link"
+      namespace=""
+      x="${calibration['sensor_kit_base_link']['camera1/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera1/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera1/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera1/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera1/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera1/camera_link']['yaw']}"
+      fps="10"
+      width="1280"
+      height="720"
+      fov="1.83"
+    /> -->
 
     <!-- radar -->
     <xacro:radar_macro
