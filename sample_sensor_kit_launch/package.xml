@@ -19,6 +19,11 @@
   <exec_depend>usb_cam</exec_depend>
   <exec_depend>smrc_imu_driver</exec_depend>
   <exec_depend>lslidar_driver</exec_depend>
+  <exec_depend>pe_ars408_ros</exec_depend>
+  <exec_depend>gps_network_pkg</exec_depend>
+  <exec_depend>image_common</exec_depend>
+  <exec_depend>image_pipeline</exec_depend>
+  <exec_depend>vision_opencv</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>autoware_lint_common</test_depend>
