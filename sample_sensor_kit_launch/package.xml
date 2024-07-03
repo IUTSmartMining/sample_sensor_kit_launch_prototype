@@ -17,7 +17,6 @@
   <exec_depend>topic_tools</exec_depend>
   <exec_depend>ublox_gps</exec_depend>
   <exec_depend>usb_cam</exec_depend>
-  <exec_depend>smrc_imu_driver</exec_depend>
   <exec_depend>lslidar_driver</exec_depend>
   <exec_depend>pe_ars408_ros</exec_depend>
   <exec_depend>gps_network_pkg</exec_depend>
