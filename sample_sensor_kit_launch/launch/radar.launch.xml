@@ -1,7 +1,8 @@
 <launch>
     <arg name="launch_driver" default="true"/>
     <arg name="ip_address" default="192.168.100.9"/>
-    <arg name="port" default="50000"/>
+    <arg name="port_send" default="50000"/>
+    <arg name="port_receive" default="50001"/>
     <arg name="can_tx" default="/sensing/radar/can_tx"/>
     <arg name="objects_raw" default="/sensing/radar/objects_raw"/>
     <arg name="scan" default="/sensing/radar/scan"/>
@@ -15,7 +16,8 @@
 
         <include file="$(find-pkg-share pe_ars408_ros)/launch/continental_ars408.launch.xml">
             <arg name="ip_address" value="$(var ip_address)"/>
-            <arg name="port" value="$(var port)"/>
+            <arg name="port_send" value="$(var port_send)"/>
+            <arg name="port_receive" value="$(var port_receive)"/>
             <arg name="input/frame" value="$(var can_tx)"/>
             <arg name="output/objects" value="$(var objects_raw)"/>
             <arg name="output/scan" value="$(var scan)"/>
