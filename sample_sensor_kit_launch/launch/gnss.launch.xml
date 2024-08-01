@@ -32,5 +32,8 @@
 
       <arg name="use_gnss_ins_orientation" value="true"/>
     </include>
+
+    <node pkg="topic_tools" exec="relay" name="localization_pose_relay"
+          args="pose_with_covariance /localization/pose_estimator/pose_with_covariance"/>
   </group>
 </launch>
