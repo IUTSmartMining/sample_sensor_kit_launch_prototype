@@ -23,18 +23,18 @@
             <arg name="output/scan" value="$(var scan)"/>
         </include>
 
-        <include file="$(find-pkg-share radar_tracks_noise_filter)/launch/radar_tracks_noise_filter.launch.xml">
+        <include file="$(find-pkg-share autoware_radar_tracks_noise_filter)/launch/radar_tracks_noise_filter.launch.xml">
             <arg name="input/tracks" value="$(var objects_raw)"/>
             <arg name="output/noise_tracks" value="$(var noise_tracks)"/>
             <arg name="output/filtered_tracks" value="$(var filtered_objects)"/>
-            <arg name="param_path" value="$(find-pkg-share radar_tracks_noise_filter)/config/radar_tracks_noise_filter.param.yaml"/>
+            <arg name="param_path" value="$(find-pkg-share autoware_radar_tracks_noise_filter)/config/radar_tracks_noise_filter.param.yaml"/>
         </include>
 
-        <include file="$(find-pkg-share radar_tracks_msgs_converter)/launch/radar_tracks_msgs_converter.launch.xml">
+        <include file="$(find-pkg-share autoware_radar_tracks_msgs_converter)/launch/radar_tracks_msgs_converter.launch.xml">
             <arg name="input/radar_objects" value="$(var filtered_objects)"/>
             <arg name="output/radar_detected_objects" value="$(var detected_objects)"/>
             <arg name="output/radar_tracked_objects" value="$(var tracked_objects)"/>
-            <arg name="param_path" value="$(find-pkg-share radar_tracks_msgs_converter)/config/radar_tracks_msgs_converter.param.yaml"/>
+            <arg name="param_path" value="$(find-pkg-share autoware_radar_tracks_msgs_converter)/config/radar_tracks_msgs_converter.param.yaml"/>
         </include>
     </group>
 
