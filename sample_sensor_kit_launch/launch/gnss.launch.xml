@@ -6,12 +6,12 @@
     <push-ros-namespace namespace="gnss"/>
 
     <!-- Switch topic name -->
-    <let name="navsatfix_topic_name" value="raynmand/nav_sat_fix"/>
+    <let name="navsatfix_topic_name" value="raymand/nav_sat_fix"/>
     <let name="orientation_topic_name" value="/autoware_orientation"/>
 
-    <!-- Raynmand Driver -->
+    <!-- Raymand Driver -->
     <group>
-      <node pkg="gps_network_pkg" name="raynmand" exec="gps_node" if="$(var launch_driver)" respawn="true" respawn_delay="1.0">
+      <node pkg="gps_network_pkg" name="raymand" exec="gps_node" if="$(var launch_driver)" respawn="true" respawn_delay="1.0">
         <remap from="~/fix" to="~/nav_sat_fix"/>
       </node>
     </group>
