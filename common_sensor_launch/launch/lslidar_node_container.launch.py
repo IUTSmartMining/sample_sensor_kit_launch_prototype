@@ -1,3 +1,6 @@
+import os
+
+from ament_index_python.packages import get_package_share_directory
 import launch
 from launch.actions import DeclareLaunchArgument
 from launch.actions import OpaqueFunction
@@ -7,6 +10,7 @@ from launch.conditions import UnlessCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
+from launch_ros.parameter_descriptions import ParameterFile
 import yaml
 
 
@@ -41,6 +45,12 @@ def launch_setup(context, *args, **kwargs):
         for x in args:
             result[x] = LaunchConfiguration(x)
         return result
+    
+    # Pointcloud preprocessor parameters
+    distortion_corrector_node_param = ParameterFile(
+        param_file=LaunchConfiguration("distortion_correction_node_param_path").perform(context),
+        allow_substs=True,
+    )
 
     nodes = []
 
@@ -110,6 +120,7 @@ def launch_setup(context, *args, **kwargs):
                 ("~/input/pointcloud", "mirror_cropped/pointcloud_ex"),
                 ("~/output/pointcloud", "rectified/pointcloud_ex"),
             ],
+            parameters=[distortion_corrector_node_param],
             extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
         )
     )
@@ -157,6 +168,8 @@ def generate_launch_description():
         launch_arguments.append(
             DeclareLaunchArgument(name, default_value=default_value, description=description)
         )
+
+    common_sensor_share_dir = get_package_share_directory("common_sensor_launch")
     
     add_launch_arg("msop_port", "2368", "msop port number")
     add_launch_arg("launch_driver", "True", "do launch driver")
@@ -175,6 +188,8 @@ def generate_launch_description():
     add_launch_arg("rotation_speed", "600", "rotational frequency")
     add_launch_arg("dual_return_distance_threshold", "0.1", "dual return distance threshold")
     add_launch_arg("frame_id", "lidar", "frame id")
+    add_launch_arg("input_frame", LaunchConfiguration("base_frame"), "use for cropbox")
+    add_launch_arg("output_frame", LaunchConfiguration("base_frame"), "use for cropbox")
     add_launch_arg("pcl_type", "PointXYZI", "point cloud type")
     add_launch_arg("add_multicast", "False", "add multicast")
     add_launch_arg("group_ip", "224.1.1.1", "group ip")
@@ -186,15 +201,22 @@ def generate_launch_description():
     add_launch_arg("publish_scan", "True", "publish scan")
     add_launch_arg("channel_num", "8", "channel number")
     add_launch_arg("difop_port", "2369", "difop port number")
-    add_launch_arg("input_frame", LaunchConfiguration("base_frame"), "use for cropbox")
-    add_launch_arg("output_frame", LaunchConfiguration("base_frame"), "use for cropbox")
+    add_launch_arg("use_multithread", "False", "use multithread")
+    add_launch_arg("use_intra_process", "False", "use ROS 2 component container communication")
+    add_launch_arg("lidar_container_name", "lslidar_node_container")
+    add_launch_arg("output_as_sensor_frame", "True", "output final pointcloud in sensor frame")
     add_launch_arg(
         "vehicle_mirror_param_file", description="path to the file of vehicle mirror position yaml"
     )
-    add_launch_arg("use_multithread", "False", "use multithread")
-    add_launch_arg("use_intra_process", "False", "use ROS 2 component container communication")
-    add_launch_arg("lidar_container_name", "nebula_node_container")
-    add_launch_arg("output_as_sensor_frame", "True", "output final pointcloud in sensor frame")
+    add_launch_arg(
+        "distortion_correction_node_param_path",
+        os.path.join(
+            common_sensor_share_dir,
+            "config",
+            "distortion_corrector_node.param.yaml",
+        ),
+        description="path to parameter file of distortion correction node",
+    )
 
     set_container_executable = SetLaunchConfiguration(
         "container_executable",
