@@ -11,8 +11,8 @@
 
     <!-- Raymand Driver -->
     <group>
-      <node pkg="gps_network_pkg" name="raymand" exec="gps_node" if="$(var launch_driver)" respawn="true" respawn_delay="1.0">
-        <remap from="~/fix" to="~/nav_sat_fix"/>
+      <node pkg="gps_network_pkg" name="raymand_gnss_node" exec="gnss_node" if="$(var launch_driver)" respawn="true" respawn_delay="1.0">
+        <remap from="~/fix" to="$(var navsatfix_topic_name)"/>
       </node>
     </group>
 
